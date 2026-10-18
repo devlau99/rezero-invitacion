@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Continuamos Re:Zero?</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            overflow: hidden;
+
+            /* Imagen de fondo de Beako con capa oscura para legibilidad */
+            background: linear-gradient(rgba(18, 11, 28, 0.55), rgba(18, 11, 28, 0.75)), 
+                        url('beako.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        #content {
+            /* Efecto cristal (Glassmorphism) para que combine */
+            background-color: rgba(35, 23, 53, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(206, 147, 216, 0.5);
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+            padding: 35px 30px;
+            text-align: center;
+            max-width: 480px;
+            z-index: 2;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 26px;
+            color: #fce4ec;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        #yesButton, #noButton {
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+            transition: 0.25s ease;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #yesButton {
+            background-color: #ab47bc; /* Tono magenta/púrpura de Beako */
+            color: white;
+        }
+
+        #yesButton:hover {
+            background-color: #ba68c8;
+            transform: scale(1.05);
+        }
+
+        #noButton {
+            background-color: #4a3b53;
+            color: #e0d0e3;
+        }
+
+        #noButton:disabled {
+            background-color: #2b2333;
+            color: #796882;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 18px;
+            font-size: 16px;
+            color: #f8bbd0;
+            font-style: italic;
+            min-height: 24px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+        }
+
+        /* Destellos mágicos al aceptar */
+        .sparkle {
+            position: fixed;
+            top: -50px;
+            width: 32px;
+            height: 32px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon fill="%23f48fb1" points="12,0 15,9 24,12 15,15 12,24 9,15 0,12 9,9"/></svg>');
+            animation: fall 3.5s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h2 id="question">¿Y sí continuamos con Re:Zero hoy?</h2>
+        <button id="yesButton">¡Claro que sí! 💜</button>
+        <button id="noButton">No, paso por ahora.</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        var noClickCount = 0;
+        var noButton = document.getElementById('noButton');
+        var yesButton = document.getElementById('yesButton');
+        var message = document.getElementById('message');
+        var question = document.getElementById('question');
+
+        noButton.addEventListener('click', function() {
+            noClickCount++;
+
+            if (noClickCount === 1) {
+                yesButton.style.fontSize = '26px';
+                message.innerText = 'Andaleee siiiii...';
+            } else if (noClickCount === 2) {
+                this.style.fontSize = '14px';
+                yesButton.style.fontSize = '34px';
+                message.innerText = 'Piensalo bien antes de decir que no...';
+            } else if (noClickCount === 3) {
+                yesButton.style.fontSize = '46px';
+                this.style.fontSize = '11px';
+                message.innerText = '¡Te voy a hackear si sigues diciendo que no!';
+            } else if (noClickCount === 4) {
+                this.innerText = '¿Huir?';
+                this.style.position = 'absolute';
+                this.style.left = Math.random() * (window.innerWidth - 120) + 'px';
+                this.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            } else if (noClickCount >= 5 && noClickCount < 10) {
+                this.style.position = 'absolute';
+                this.style.left = Math.random() * (window.innerWidth - 120) + 'px';
+                this.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+                message.innerText = '¡La biblioteca prohibida no tiene salida para los indecisos!';
+            } else if (noClickCount >= 10 && noClickCount < 15) {
+                this.style.position = 'absolute';
+                this.style.left = Math.random() * (window.innerWidth - 120) + 'px';
+                this.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+                message.innerText = 'Subaru ya hubiera muerto 3 veces en lo que dudas...';
+            } else if (noClickCount === 15) {
+                message.innerText = 'Rompiste el contrato. No hay escape: toca ver Re:Zero hoy.';
+                this.disabled = true;
+                this.style.color = '#796882';
+            }
+        });
+
+        yesButton.addEventListener('click', function() {
+            question.innerText = 'Sabía que dirias que sí ✨';
+            message.innerText = 'Voy a preparar los snacks, para continuar.';
+
+            for (var i = 0; i < 70; i++) {
+                var sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                sparkle.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                sparkle.style.animationDelay = (Math.random() * 2) + 's';
+                document.body.appendChild(sparkle);
+            }
+
+            yesButton.style.display = 'none';
+            noButton.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
